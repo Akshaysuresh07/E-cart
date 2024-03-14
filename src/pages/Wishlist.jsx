@@ -6,6 +6,9 @@ import { Col, Row, Card } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import {removeWishlist} from '../redux/slice/WishlistSlice'
 import { addtoCart } from '../redux/slice/CartSlice'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 function Wishlist() {
   const cart=useSelector(state=>state.cartReducer)
@@ -16,13 +19,13 @@ function Wishlist() {
     if(existingProduct){
       dispatch(addtoCart(product))
       dispatch(removeWishlist(product.id))
-      alert("products added to cart!!")
+      toast.success("products added to cart!!")
       
     }
     else{
       dispatch(addtoCart(product))
       dispatch(removeWishlist(product.id))
-      alert("product added to cart")
+      toast.success("product added to cart")
     }
    
     
@@ -66,6 +69,8 @@ function Wishlist() {
        </>     
         }
       </div>
+      <ToastContainer position='top-center' theme='colored' autoClose={3000} />
+
 
 
     </>

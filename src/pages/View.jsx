@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/no-unknown-property */
 import React, { useEffect, useState } from 'react'
 
@@ -6,6 +7,8 @@ import { useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { addWishlistItems } from '../redux/slice/WishlistSlice'
 import { addtoCart } from '../redux/slice/CartSlice'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 
@@ -26,12 +29,12 @@ function View() {
   },[])
   const handleWishlist=(product)=>{
     if(wishlist?.includes(product)){
-      alert('item already in wislist')
+      toast.info('item already in wislist')
 
      } 
      else{
       dispatch(addWishlistItems(product))
-
+      toast.success("products added to wishlist")
 
      }
     
@@ -40,12 +43,12 @@ function View() {
     const existingProduct=cart?.find(item=>item.id==product.id)
     if(existingProduct){
       dispatch(addtoCart(product))
-      alert("products added to cart!!")
+      toast.success("products added to cart!!")
       
     }
     else{
       dispatch(addtoCart(product))
-      alert("product added to cart")
+      toast.success("product added to cart")
     }
    
     
@@ -77,6 +80,7 @@ function View() {
         </div>
 
       </div>
+      <ToastContainer position='top-center' theme='colored' autoClose={3000} />
     </>
   )
 }

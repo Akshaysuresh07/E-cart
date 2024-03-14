@@ -21,12 +21,18 @@ export const fetchProducts = createAsyncThunk('products/fetchProducts', async ()
 
         reducers: {
 
+            searchProduct :(state,action)=>{
+                state.allProducts=state.allProductsTemp.filter(item=>item.title.toLowerCase().includes(action.payload))
+
+            }
+
 
         },
         extraReducers: (builder) => {
             builder.addCase(fetchProducts.fulfilled, (state, action) => {
                 state.loading = false
                 state.allProducts = action.payload
+                state.allProductsTemp=action.payload
                 state.error = ''
             })
             builder.addCase(fetchProducts.pending, (state, action) => {
@@ -44,4 +50,5 @@ export const fetchProducts = createAsyncThunk('products/fetchProducts', async ()
 
 
     })
+    export const {searchProduct}=productSlice.actions
     export default productSlice.reducer
