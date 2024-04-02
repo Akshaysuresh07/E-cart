@@ -3,9 +3,12 @@ import React, { useEffect, useState } from 'react'
 import Header from '../Components/Header'
 import { useDispatch, useSelector } from 'react-redux'
 import { descQuantity, emptyCart, incQuantity, removeCart } from '../redux/slice/CartSlice'
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from 'react-router-dom';
 
 function Cart() {
+  const Navigate=useNavigate()
   const dispatch=useDispatch()
   const cartItems =useSelector(state=>state.cartReducer)
   const [cartTotal,setCartTotal]=useState(0)
@@ -25,6 +28,14 @@ function Cart() {
     else{
       dispatch(removeCart(product.id))
     }
+  }
+  const handleCheckout=()=>{
+    dispatch(emptyCart())
+    toast.success("Order placed successfully")
+    setTimeout(()=>{
+      Navigate('/')
+    },2000)
+
   }
   return (
     <>
@@ -69,7 +80,7 @@ function Cart() {
     </tbody>
     </table>
     <button onClick={()=>dispatch(emptyCart())} className='btn btn-danger'>Clear Cart</button>
-    <button  className='btn btn-success ms-3'>Shop More</button>
+    <button onClick={()=>Navigate('/')}  className='btn btn-success ms-3'>Shop More</button>
 
     </div>
     <div className='col-lg-4'>
@@ -78,7 +89,7 @@ function Cart() {
       <div className='mt-5 ms-3'>
         <h4>Total item :<span className='text-danger'>{cartItems?.length}</span></h4>
         <h4>Total Price:<span className='text-danger'>${cartTotal}</span></h4>
-        <button className='btn btn-success w-100 mt-3'>Check Out</button>
+        <button onClick={handleCheckout} className='btn btn-success w-100 mt-3'>Check Out</button>
       </div>
     </div>
     </div>
@@ -89,6 +100,9 @@ function Cart() {
     <img src="https://www.bing.com/th/id/OGC.7a61d43e9897d56a9d07c3410da472a0?pid=1.7&rurl=https%3a%2f%2fwww.recoveryguide.net%2fwp-content%2fuploads%2f2018%2f07%2fanimat-shopping-cart-color.gif&ehk=Hi5BXfpsUIRZcu04Wsq564Opyuf6oMCfza7L64g8FuQ%3d" alt="product" className='img-fluid' />
     </div>}
     </div>
+    <ToastContainer position='top-center' theme='colored' autoClose={3000} />
+
+    
     </>
   )
 }

@@ -35,7 +35,7 @@ function Wishlist() {
   return (
     <>
       <Header />
-      <div className='container' style={{ marginTop: '100px' }}>
+      <div className='container' style={{ marginTop: '130px' }}>
 
 
         {WishlistItems?.length > 0 ?

@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-key */
 import React, { useEffect, useState } from 'react'
 import Header from '../Components/Header'
-import { Row, Col, Card,Spinner } from 'react-bootstrap'
+import { Row, Col, Card,Spinner,Button} from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import productSlice, { fetchProducts } from '../redux/productSlice'
 import { useSelector, useDispatch } from 'react-redux';
@@ -34,7 +34,7 @@ function Home() {
   return (
     <>
       <Header insideHome />
-      <div className='container-fluid ps-2' style={{ marginTop: '130px' }}>
+      <div className='container-fluid ps-2' style={{ marginTop: '140px' }}>
       
         {loading?<div className='mt-5 text-center fw-bolder'><Spinner animation="border" variant="danger" />Loading...</div>
      
@@ -48,11 +48,12 @@ function Home() {
 
         <Col  className='mb-5  ' sm={12} md={6} lg={4} xl={3} >
 
-            <Card className='shadow rounded ms-3'  style={{ width: '18rem' }}>
+            <Card className='pd shadow rounded ms-3'  style={{ width: '18rem' }}>
               <Card.Img   style={{height:'180px'}} variant="top" src={product.thumbnail} />
               <Card.Body>
                 <Card.Title>{product.title.slice(0,15)}..</Card.Title>
-                <div className='text-center'>   <Link to={`/view/${product?.id}`} variant="primary">View more..</Link></div>
+                <div className='text-center p-2'>   <Link to={`/view/${product?.id}`} variant="primary"><Button  variant="dark" size="sm">View Details
+              </Button></Link></div>
               </Card.Body>
             </Card>
           </Col>
@@ -66,9 +67,9 @@ function Home() {
         </Row>
       }
       <div className='d-flex justify-content-center align-item-center mt-5 ms-4'>
-        <span onClick={navigateToPrev} style={{cursor:'pointer'}}><i className='fa-solid fa-backward ms-5'></i></span>
-        <span className='fw-bolder ms-4' style={{cursor:'pointer'}}>{currentPage} of {totalPages}</span>
-        <span onClick={navigateToNext}  style={{cursor:'pointer'}}><i className='fa-solid fa-forward ms-5'></i></span>
+        <span onClick={navigateToPrev} style={{cursor:'pointer'}}><i className='fa-solid fa-backward ms-4'></i></span>
+        <span className='fw-bolder ms-3' style={{cursor:'pointer'}}>{currentPage} of {totalPages}</span>
+        <span onClick={navigateToNext}  style={{cursor:'pointer'}}><i className='fa-solid fa-forward ms-4'></i></span>
       </div>
      
       </div>
